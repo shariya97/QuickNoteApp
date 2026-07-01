@@ -1,0 +1,19 @@
+body{
+    background:#f5f5f5;
+}
+
+.card{
+    border-radius:12px;
+}
+
+textarea{
+    resize:none;
+}
+
+.navbar-brand{
+    font-weight:bold;
+}
+
+.btn{
+    border-radius:8px;
+}

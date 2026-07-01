@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Welcome, {{ current_user.username }}
+</h2>
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+
+                {{ form.text.label }}
+
+                {{ form.text(class="form-control", rows="4") }}
+
+            </div>
+
+            {{ form.submit(class="btn btn-success") }}
+
+        </form>
+
+    </div>
+
+</div>
+
+<h3>Your Notes</h3>
+
+{% if notes %}
+
+{% for note in notes %}
+
+<div class="card mt-3">
+
+    <div class="card-body">
+
+        <!-- XSS Protection -->
+        <p>{{ note.text }}</p>
+
+        <small class="text-muted">
+
+            {{ note.date_created.strftime('%d %b %Y %H:%M') }}
+
+        </small>
+
+        <hr>
+
+        <a href="{{ url_for('views.edit_note', id=note.id) }}"
+            class="btn btn-warning btn-sm">
+
+            Edit
+
+        </a>
+
+        <a href="{{ url_for('views.delete_note', id=note.id) }}"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Delete this note?')">
+
+            Delete
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="alert alert-info mt-3">
+
+    No notes yet.
+
+</div>
+
+{% endif %}
+
+{% endblock %}
